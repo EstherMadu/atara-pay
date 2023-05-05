@@ -39,7 +39,7 @@ const SignUpBuyer = () => {
                   id="input1"
                   type="text"
                   placeholder="First Name"
-                  value={number}
+                  value={fname}
                   onChange={(e) => setFname(e.target.value)}
                 />
                 <input
@@ -47,7 +47,7 @@ const SignUpBuyer = () => {
                   id="input1"
                   type="text"
                   placeholder="Last Name"
-                  value={number}
+                  value={lname}
                   onChange={(e) => setLname(e.target.value)}
                 />
                 <input
@@ -55,7 +55,7 @@ const SignUpBuyer = () => {
                   id="input1"
                   type="text"
                   placeholder="Email Address (e.g. mail@atarapay.com)"
-                  value={number}
+                  value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
@@ -71,8 +71,8 @@ const SignUpBuyer = () => {
                   id="input1"
                   type="text/number"
                   placeholder="Enter Password (* * * * * * * * * * * )"
-                  value={number}
-                  onChange={(e) => setNumber(e.target.value)}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <input
                   className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-xs"
