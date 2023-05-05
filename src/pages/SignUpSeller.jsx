@@ -10,6 +10,8 @@ const SignUpBuyer = () => {
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [countryCode, setCountryCode] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,7 +41,7 @@ const SignUpBuyer = () => {
                   id="input1"
                   type="text"
                   placeholder="First Name"
-                  value={number}
+                  value={fname}
                   onChange={(e) => setFname(e.target.value)}
                 />
                 <input
@@ -47,7 +49,7 @@ const SignUpBuyer = () => {
                   id="input1"
                   type="text"
                   placeholder="Last Name"
-                  value={number}
+                  value={lname}
                   onChange={(e) => setLname(e.target.value)}
                 />
                 <input
@@ -55,32 +57,43 @@ const SignUpBuyer = () => {
                   id="input1"
                   type="text"
                   placeholder="Email Address (e.g. mail@atarapay.com)"
-                  value={number}
+                  value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
+                <div className="flex items-center">
+                  <input
+                    className="appearance-none border rounded-l-lg w-1/4 py-4 px-5  text-gray-700 leading-tight border-blue-300 text-xs focus:outline-none focus:shadow-outline"
+                    id="input1"
+                    type="tel"
+                    placeholder="Country Code"
+                    value={countryCode}
+                    onChange={(e) => setCountryCode(e.target.value)}
+                  />
+                  <input
+                    className="appearance-none border rounded-r-lg w-3/4 py-4 px-5  text-gray-700 leading-tight border-blue-300 text-xs focus:outline-none focus:shadow-outline"
+                    id="input2"
+                    type="tel"
+                    placeholder="Phone Number"
+                    value={number}
+                    onChange={(e) => setNumber(e.target.value)}
+                  />
+                </div>
+
                 <input
                   className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 text-xs focus:outline-none focus:shadow-outline"
                   id="input1"
-                  type="text"
-                  placeholder="Phone Number (08*   * * *   * * * *)"
-                  value={number}
-                  onChange={(e) => setNumber(e.target.value)}
-                />
-                <input
-                  className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 text-xs focus:outline-none focus:shadow-outline"
-                  id="input1"
-                  type="text/number"
+                  type="password"
                   placeholder="Enter Password (* * * * * * * * * * * )"
-                  value={number}
-                  onChange={(e) => setNumber(e.target.value)}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <input
                   className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-xs"
                   id="input1"
-                  type="text"
+                  type="password"
                   placeholder="Confirm Password (* * * * * * * * * * * )"
-                  value={number}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </div>
 

@@ -10,6 +10,7 @@ const SignUpBuyer = () => {
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -66,10 +67,11 @@ const SignUpBuyer = () => {
                   value={number}
                   onChange={(e) => setNumber(e.target.value)}
                 />
+
                 <input
                   className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 text-xs focus:outline-none focus:shadow-outline"
                   id="input1"
-                  type="text/number"
+                  type="password"
                   placeholder="Enter Password (* * * * * * * * * * * )"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -77,10 +79,10 @@ const SignUpBuyer = () => {
                 <input
                   className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-xs"
                   id="input1"
-                  type="text"
+                  type="password"
                   placeholder="Confirm Password (* * * * * * * * * * * )"
-                  value={number}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </div>
 
