@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AuthLayout from "../components/shared/AuthLayout";
 import heroImg from "../assets/images/hero-img.svg";
-import captcha from "../assets/images/captcha.svg";
+import captcha from "../assets/images/captcha.png";
 import { NavLink } from "react-router-dom";
 
 const SignUpBuyer = () => {
