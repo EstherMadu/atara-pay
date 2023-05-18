@@ -22,8 +22,8 @@ body {
   padding: 0 2rem;
 }
 
-/* @media (max-width: 1000px) {
-  body {
-    background-image: white;
+@media (max-width: 900px) {
+  .form-content {
+    overflow-y: auto;
   }
-} */
+}

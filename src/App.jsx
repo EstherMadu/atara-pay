@@ -6,6 +6,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Otp from "./pages/Otp";
 import LoginBuyer from "./pages/LoginBuyer";
 import LoginSeller from "./pages/LoginSeller";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/login/buyer" element={<LoginBuyer />} />
         <Route path="/otp" element={<Otp />} />
         <Route path="/forgot" element={<ForgotPassword />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

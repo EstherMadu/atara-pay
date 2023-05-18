@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DefaultLayout from "../components/shared/DefaultLayout";
-import waves from "../assets/images/waves.svg";
+import waves from "../assets/images/waves-404.svg";
 
 const Otp = () => {
   const [otp, setOtp] = useState("");
@@ -50,11 +50,7 @@ const Otp = () => {
           </div>
         </section>
         <footer className="sticky bottom-0 mt-auto">
-          <img
-            src={waves}
-            alt="waves"
-            className="footer_img relative bottom-0 w-full"
-          />
+          <img src={waves} alt="waves" className="relative bottom-0 w-full" />
         </footer>
       </div>
     </DefaultLayout>

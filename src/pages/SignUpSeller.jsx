@@ -28,8 +28,8 @@ const SignUpBuyer = () => {
             className="w-full md:max-w-[600px] opacity-20"
           />
         </div>
-        <div className="lg:col-span-6 flex flex-col lg:bg-blue-600 h-full pt-12 z-10">
-          <div className="bg-white border rounded-xl shadow-lg p-10 w-full md:w-[700px] mx-auto lg:-ml-[300px] my-auto">
+        <div className="lg:col-span-6 flex flex-col lg:bg-blue-600 h-full pt-12 z-10  form-content">
+          <div className="bg-white border rounded-xl shadow-lg p-10 w-full md:w-[700px] mx-auto lg:-ml-[300px] my-auto ">
             <h2 className="text-blue-600 text-3xl font-bold">
               Sign Up to Trustpay (Seller)
             </h2>
