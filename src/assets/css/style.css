@@ -27,3 +27,19 @@ body {
     overflow-y: auto;
   }
 }
+
+.PhoneInputInput {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-width: 1px;
+  border-style: solid;
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  color: #4a5568;
+  line-height: 1.25;
+  border-color: #71a9f3;
+  outline: none;
+}

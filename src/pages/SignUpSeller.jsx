@@ -3,6 +3,13 @@ import AuthLayout from "../components/shared/AuthLayout";
 import heroImg from "../assets/images/hero-img.svg";
 import captcha from "../assets/images/captcha.png";
 import { NavLink } from "react-router-dom";
+import PhoneInput, {
+  isValidPhoneNumber,
+  isPossiblePhoneNumber,
+  formatPhoneNumber,
+  formatPhoneNumberIntl,
+} from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 
 const SignUpBuyer = () => {
   const [number, setNumber] = useState("");
@@ -11,7 +18,7 @@ const SignUpBuyer = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [countryCode, setCountryCode] = useState("");
+  const [value, setValue] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -60,8 +67,7 @@ const SignUpBuyer = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <div className="flex items-center">
-                  <input
+                {/* <input
                     className="appearance-none border rounded-l-lg w-1/4 py-4 px-5  text-gray-700 leading-tight border-blue-300 text-xs focus:outline-none focus:shadow-outline"
                     id="input1"
                     type="tel"
@@ -76,8 +82,14 @@ const SignUpBuyer = () => {
                     placeholder="Phone Number"
                     value={number}
                     onChange={(e) => setNumber(e.target.value)}
-                  />
-                </div>
+                  /> */}
+
+                <PhoneInput
+                  placeholder="Phone Number (08*   * * *   * * * *)"
+                  value={value}
+                  onChange={(value) => setValue(value)}
+                  defaultCountry="NG"
+                />
 
                 <input
                   className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 text-xs focus:outline-none focus:shadow-outline"
