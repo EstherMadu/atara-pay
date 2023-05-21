@@ -23,7 +23,7 @@ const LoginBuyer = () => {
             <h2 className="text-blue-600 text-xl font-bold mb-2">
               Buyer's Login
             </h2>
-            <p className="text-xs mb-6">LOGIN TO TRUSTPAY (BUYERS)</p>
+            <p className="text-xs mb-6">LOGIN TO ATARAPAY (BUYERS)</p>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <input
