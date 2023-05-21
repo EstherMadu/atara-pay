@@ -12,31 +12,36 @@ import PhoneInput, {
 import "react-phone-number-input/style.css";
 
 const SignUpBuyer = () => {
-  const [number, setNumber] = useState("");
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [value, setValue] = useState();
+  const [referral, setReferral] = useState();
+  const [option, setOption] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(number, password);
   };
 
+  const handleSelectedOption = (e) => {
+    setOption(e.target.value);
+  };
+
   return (
     <AuthLayout>
-      <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 h-screen overflow-hidden">
-        <div className=" hidden lg:flex col-span-6 justify-end items-center  pt-12">
+      <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 min-h-screen overflow-y-auto">
+        <div className="   lg:flex col-span-6 justify-end items-center  pt-12">
           <img
             src={heroImg}
             alt="hero"
             className="w-full md:max-w-[600px] opacity-20"
           />
         </div>
-        <div className="lg:col-span-6 flex flex-col lg:bg-blue-600 h-full pt-12 z-10 form-content">
-          <div className="bg-white border rounded-xl shadow-lg p-10 w-full md:w-[700px] mx-auto lg:-ml-[300px] my-auto ">
+        <div className=" col-span-8 lg:col-span-6 flex flex-col lg:bg-blue-600 h-full pt-12 z-10 form-content">
+          <div className="bg-white border rounded-xl shadow-lg p-10 w-full md:w-[700px] mx-auto lg:-ml-[300px] my-auto">
             <h2 className="text-blue-600 text-3xl font-bold">
               Sign Up to Trustpay (Buyer)
             </h2>
@@ -90,6 +95,25 @@ const SignUpBuyer = () => {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
+                <input
+                  className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-xs "
+                  id="input1"
+                  type="password"
+                  placeholder="Referral Code"
+                  value={referral}
+                  onChange={(e) => setReferral(e.target.value)}
+                />
+
+                <select
+                  value={option}
+                  onChange={handleSelectedOption}
+                  className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-sm"
+                >
+                  <option value="">How did you hear about us? </option>
+                  <option value="Linkedin">Linkedin</option>
+                  <option value="A friend">A friend</option>
+                  <option value="Google Search">Google Search</option>
+                </select>
               </div>
 
               <div className="grid md:flex items-center justify-center mb-6 lg:mb-0">

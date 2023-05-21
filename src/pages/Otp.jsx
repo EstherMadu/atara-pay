@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DefaultLayout from "../components/shared/DefaultLayout";
-import waves from "../assets/images/waves-404.svg";
+import waves from "../assets/images/waves.svg";
 
 const Otp = () => {
   const [otp, setOtp] = useState("");
@@ -14,10 +14,10 @@ const Otp = () => {
       <div className="flex flex-col min-h-screen">
         <section className="flex items-center justify-center mt-40">
           <div className="text-center">
-            <h2 className="text-center text-4xl text-blue-600 font-bold ">
+            <h2 className=" px-10 text-center text-4xl text-blue-600 font-bold ">
               Verify your Phone Number
             </h2>
-            <p className="py-8 text-lg font-medium tracking-wide w-96 lg:w-full mx-auto lg:mx-0">
+            <p className="px-4 py-8 text-lg font-medium tracking-wide w-80 lg:w-full mx-auto lg:mx-0">
               Click on 'Request OTP' to get an OTP sent to your phone. Use this
               for verification
             </p>

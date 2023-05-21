@@ -9,7 +9,7 @@
 }
 
 html {
-  height: 100%;
+  height: auto;
 }
 
 body {
@@ -22,11 +22,20 @@ body {
   padding: 0 2rem;
 }
 
-@media (max-width: 900px) {
+/* .form-content {
+  overflow-y: auto;
+} */
+
+/* @media (max-width: 900px) {
   .form-content {
     overflow-y: auto;
   }
-}
+} */
+/* @media (min-width: 900px) {
+  .form-content {
+    overflow-y: auto;
+  }
+} */
 
 .PhoneInputInput {
   -webkit-appearance: none;

@@ -14,15 +14,11 @@ const ForgotPassword = () => {
 
   return (
     <AuthLayout>
-      <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 h-screen overflow-hidden">
-        <div className="mt-14 lg:flex md:col-span-8 justify-end items-center lg:pl-10 lg:pr-[300px] pt-12">
-          <img
-            src={heroImg}
-            alt="hero"
-            className=" w-30 md:w-full md:max-w-[600px]"
-          />
+      <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 min-h-screen overflow-y-auto">
+        <div className="col-span-8 justify-end items-center pl-10 lg:pr-[300px] pt-32 mt-10">
+          <img src={heroImg} alt="hero" className="w-full md:max-w-[600px]" />
         </div>
-        <div className="lg:col-span-4 flex flex-col lg:bg-blue-600 h-full pt-12">
+        <div className="col-span-10 lg:col-span-4 flex flex-col lg:bg-blue-600 h-full pt-12">
           <div className="bg-white border rounded-xl shadow-lg p-10 w-full md:w-[480px] mx-auto lg:-ml-[250px] my-auto">
             <h2 className="text-blue-600 text-2xl font-bold mb-12">
               Forgot Password

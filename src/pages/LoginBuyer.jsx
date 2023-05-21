@@ -14,11 +14,11 @@ const LoginBuyer = () => {
 
   return (
     <AuthLayout>
-      <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 h-screen overflow-hidden">
-        <div className="hidden lg:flex col-span-8 justify-end items-center pl-10 lg:pr-[300px] pt-12">
+      <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 min-h-screen overflow-y-auto">
+        <div className="col-span-8 justify-end items-center pl-10 lg:pr-[300px] pt-12 mt-24">
           <img src={heroImg} alt="hero" className="w-full md:max-w-[600px]" />
         </div>
-        <div className="lg:col-span-4 flex flex-col lg:bg-blue-600 h-full pt-12">
+        <div className="col-span-8 lg:col-span-4 flex flex-col lg:bg-blue-600 h-full pt-12">
           <div className="bg-white border rounded-xl shadow-lg p-10 w-full md:w-[480px] mx-auto lg:-ml-[250px] my-auto">
             <h2 className="text-blue-600 text-xl font-bold mb-2">
               Buyer's Login
