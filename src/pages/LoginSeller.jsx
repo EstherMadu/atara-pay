@@ -23,7 +23,7 @@ const LoginSeller = () => {
             <h2 className="text-blue-600 text-xl font-bold mb-2">
               Seller's Login
             </h2>
-            <p className="text-xs mb-6">LOGIN TO ATARAPAY (SELLER)</p>
+            <p className="text-xs mb-6">LOGIN TO AtaraPay (SELLER)</p>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <input
