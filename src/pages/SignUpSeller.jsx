@@ -113,6 +113,17 @@ const SignUpBuyer = () => {
                   onChange={handleSelectedOption}
                   className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-sm"
                 >
+                  <option value="">Select a role </option>
+                  <option value="Linkedin">Individual Seller</option>
+                  <option value="A friend">Business Seller</option>
+                  <option value="Google Search">Marketplace Operator</option>
+                </select>
+
+                <select
+                  value={option}
+                  onChange={handleSelectedOption}
+                  className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-sm"
+                >
                   <option value="">How did you hear about us? </option>
                   <option value="Linkedin">Linkedin</option>
                   <option value="A friend">A friend</option>
