@@ -47,7 +47,18 @@ const SignUpBuyer = () => {
             <h2 className="text-blue-600 text-3xl font-bold">
               Sign Up to AtaraPay (Seller)
             </h2>
-            <p className="text-xs py-6">* All fields are mandatory</p>
+            <div className="flex justify-between py-6">
+              <p className="text-sm ">
+                <span className="text-red-600">*</span> All fields are mandatory
+              </p>
+              <a
+                href="https://www.youtube.com/watch?v=3h7RNC5VglM"
+                className="text-sm text-blue-600"
+                target="_blank"
+              >
+                Watch: How To Register as a Seller
+              </a>
+            </div>
             <form onSubmit={handleSubmit}>
               <div className="grid md:grid-cols-2 gap-6">
                 <input
@@ -99,25 +110,37 @@ const SignUpBuyer = () => {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
 
-                <input
-                  className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-xs "
-                  id="input1"
-                  type="password"
-                  placeholder="Referral Code"
-                  value={referral}
-                  onChange={(e) => setReferral(e.target.value)}
-                />
+                <div>
+                  <select
+                    value={option}
+                    onChange={handleSelectedOption}
+                    className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-sm"
+                  >
+                    <option value="">Select a role </option>
+                    <option value="Linkedin">Individual Seller</option>
+                    <option value="A friend">Business Seller</option>
+                    <option value="Google Search">Marketplace Operator</option>
+                  </select>
+                  <p className="text-xs text-center pt-2 text-red-500">
+                    Business Sellers and Marketplace Operator shall require
+                    documentation to verify the business,
+                  </p>
+                </div>
 
-                <select
-                  value={option}
-                  onChange={handleSelectedOption}
-                  className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-sm"
-                >
-                  <option value="">Select a role </option>
-                  <option value="Linkedin">Individual Seller</option>
-                  <option value="A friend">Business Seller</option>
-                  <option value="Google Search">Marketplace Operator</option>
-                </select>
+                <div>
+                  <input
+                    className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-xs "
+                    id="input1"
+                    type="password"
+                    placeholder="Referral Code"
+                    value={referral}
+                    onChange={(e) => setReferral(e.target.value)}
+                  />
+                  <p className="text-xs text-center pt-2">
+                    If you were referred by any existing user, please enter
+                    their referral code.
+                  </p>
+                </div>
 
                 <select
                   value={option}
