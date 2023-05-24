@@ -223,7 +223,7 @@ const SignUpBuyer = () => {
                   </NavLink>
                 </p>
                 <p className="text-xs">
-                  Already have an account yet? Login as
+                  Already have an account yet? Log in as
                   <NavLink
                     to="/login/buyer"
                     className="text-blue-600 font-bold px-2"
