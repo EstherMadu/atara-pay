@@ -48,72 +48,112 @@ const SignUpBuyer = () => {
             <p className="text-xs py-6">* All fields are mandatory</p>
             <form onSubmit={handleSubmit}>
               <div className="grid md:grid-cols-2 gap-6">
-                <input
-                  className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-xs"
-                  id="input1"
-                  type="text"
-                  placeholder="First Name"
-                  value={fname}
-                  onChange={(e) => setFname(e.target.value)}
-                />
-                <input
-                  className="appearance-none border rounded-lg w-full py-4 px-5 text-xs text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline"
-                  id="input1"
-                  type="text"
-                  placeholder="Last Name"
-                  value={lname}
-                  onChange={(e) => setLname(e.target.value)}
-                />
-                <input
-                  className="appearance-none border text-xs rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline"
-                  id="input1"
-                  type="text"
-                  placeholder="Email Address (e.g. mail@atarapay.com)"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <PhoneInput
-                  placeholder="Phone Number (08*   * * *   * * * *)"
-                  value={value}
-                  onChange={(value) => setValue(value)}
-                  defaultCountry="NG"
-                />
-
-                <input
-                  className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 text-xs focus:outline-none focus:shadow-outline"
-                  id="input1"
-                  type="password"
-                  placeholder="Enter Password (* * * * * * * * * * * )"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <input
-                  className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-xs"
-                  id="input1"
-                  type="password"
-                  placeholder="Confirm Password (* * * * * * * * * * * )"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-                <input
-                  className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-xs "
-                  id="input1"
-                  type="password"
-                  placeholder="Referral Code"
-                  value={referral}
-                  onChange={(e) => setReferral(e.target.value)}
-                />
-
-                <select
-                  value={option}
-                  onChange={handleSelectedOption}
-                  className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-sm"
-                >
-                  <option value="">How did you hear about us? </option>
-                  <option value="Linkedin">Linkedin</option>
-                  <option value="A friend">A friend</option>
-                  <option value="Google Search">Google Search</option>
-                </select>
+                <div>
+                  <p className="pb-2 text-xs">
+                    Please Enter Your First Name
+                    <span className="text-red-500 text-sm">*</span>
+                  </p>
+                  <input
+                    className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-xs"
+                    id="input1"
+                    type="text"
+                    placeholder="First Name"
+                    value={fname}
+                    onChange={(e) => setFname(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <p className="pb-2 text-xs">
+                    Please Enter Your Last Name
+                    <span className="text-red-500 text-sm">*</span>
+                  </p>
+                  <input
+                    className="appearance-none border rounded-lg w-full py-4 px-5 text-xs text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline"
+                    id="input1"
+                    type="text"
+                    placeholder="Last Name"
+                    value={lname}
+                    onChange={(e) => setLname(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <p className="pb-2 text-xs">
+                    This Email Address will be Username at login
+                    <span className="text-red-500 text-sm">*</span>
+                  </p>
+                  <input
+                    className="appearance-none border text-xs rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline"
+                    id="input1"
+                    type="text"
+                    placeholder="Email Address (e.g. mail@atarapay.com)"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <p className="pb-2 text-xs">
+                    This Phone Number will be Username at login
+                    <span className="text-red-500 text-sm">*</span>
+                  </p>
+                  <PhoneInput
+                    placeholder="Phone Number (08*   * * *   * * * *)"
+                    value={value}
+                    onChange={(value) => setValue(value)}
+                    defaultCountry="NG"
+                  />
+                </div>
+                <div>
+                  <p className="pb-2 text-xs">
+                    Please Select A Password
+                    <span className="text-red-500 text-sm">*</span>
+                  </p>
+                  <input
+                    className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 text-xs focus:outline-none focus:shadow-outline"
+                    id="input1"
+                    type="password"
+                    placeholder="Enter Password (* * * * * * * * * * * )"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <p className="pb-2 text-xs">
+                    Please Confirm Your Password
+                    <span className="text-red-500 text-sm">*</span>
+                  </p>
+                  <input
+                    className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-xs"
+                    id="input1"
+                    type="password"
+                    placeholder="Confirm Password (* * * * * * * * * * * )"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <p className="pb-2 text-xs">Referral Code</p>
+                  <input
+                    className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-xs "
+                    id="input1"
+                    type="password"
+                    placeholder="Referral Code"
+                    value={referral}
+                    onChange={(e) => setReferral(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <p className="pb-2 text-xs">How did you find us?</p>
+                  <select
+                    value={option}
+                    onChange={handleSelectedOption}
+                    className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-sm"
+                  >
+                    <option value="">How did you hear about us? </option>
+                    <option value="Linkedin">Linkedin</option>
+                    <option value="A friend">A friend</option>
+                    <option value="Google Search">Google Search</option>
+                  </select>
+                </div>
               </div>
 
               <div className="grid md:flex items-center justify-center mb-6 lg:mb-0">
@@ -127,7 +167,7 @@ const SignUpBuyer = () => {
               </div>
               <div className="text-center">
                 <p className="pb-2 text-xs tracking-tight">
-                  By registering you agree to TrustPay's
+                  By registering you agree to AtaraPay's
                   <a href="#" className="text-blue-600 font-bold px-2">
                     Terms of Use
                   </a>
@@ -147,7 +187,7 @@ const SignUpBuyer = () => {
                   </NavLink>
                 </p>
                 <p className="text-xs">
-                  Already have an account yet? Login as
+                  Already have an account? Log in as
                   <NavLink
                     to="/login/buyer"
                     className="text-blue-600 font-bold px-2"
