@@ -28,7 +28,7 @@ const Otp = () => {
                 type="text"
                 placeholder="Enter OTP Here"
                 value={otp}
-                maxLength={6} // limit to 6 characters for example
+                maxLength={6}
                 onChange={(e) => setOtp(e.target.value)}
               />
             </form>
