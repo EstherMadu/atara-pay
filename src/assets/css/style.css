@@ -22,21 +22,6 @@ body {
   padding: 0 2rem;
 }
 
-/* .form-content {
-  overflow-y: auto;
-} */
-
-/* @media (max-width: 900px) {
-  .form-content {
-    overflow-y: auto;
-  }
-} */
-/* @media (min-width: 900px) {
-  .form-content {
-    overflow-y: auto;
-  }
-} */
-
 .PhoneInputInput {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -51,4 +36,10 @@ body {
   line-height: 1.25;
   border-color: #71a9f3;
   outline: none;
+}
+
+@media screen and (max-width: 1100px) {
+  .form-card {
+    margin: 0 2em;
+  }
 }
