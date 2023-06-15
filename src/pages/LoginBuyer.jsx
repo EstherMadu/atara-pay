@@ -1,15 +1,67 @@
 import React, { useState } from "react";
-import AuthLayout from "../assets/images/AuthLayout";
+import AuthLayout from "../components/shared/AuthLayout";
 import heroImg from "../assets/images/hero-img.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import Input from "../components/global/Input";
+import PasswordInput from "../components/global/PasswordInput";
+import { useCheckBuyer, useLogin } from "../api/auth";
 
 const LoginBuyer = () => {
-  const [number, setNumber] = useState("");
-  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const [stage, setStage] = useState(null);
+  const { mutateAsync: checkBuyer, isLoading: isCheckBuyerLoading } =
+    useCheckBuyer();
+  const { mutateAsync: login, isLoading: isLoginLoading } = useLogin();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(number, password);
+  const handleCheckBuyer = async ({ phone: email, ...values }) => {
+    try {
+      const res = await checkBuyer({ email, ...values });
+      console.log({ res });
+      if (res.data.status === "error") {
+        setError(res.data.message);
+      } else {
+        if (res.data.data.firstTime) {
+          setStage(2);
+        } else {
+          setStage(3);
+        }
+      }
+    } catch (e) {
+      console.log({ e });
+      setError(
+        e?.response?.data?.message ?? "Something went wrong, please try again"
+      );
+    }
+  };
+
+  const handleLogin = async ({ phone: email, ...values }) => {
+    try {
+      const res = await login({ email, ...values });
+      console.log({ res });
+      navigate("/dashboard");
+    } catch (e) {
+      console.log({ e });
+      setError(
+        e?.response?.data?.message ?? "Something went wrong, please try again"
+      );
+    }
+  };
+
+  const onSubmit = async (values) => {
+    setError("");
+    console.log({ stage });
+    if (!stage) {
+      handleCheckBuyer(values);
+    } else if (stage === 3) {
+      handleLogin(values);
+    }
   };
 
   return (
@@ -25,36 +77,88 @@ const LoginBuyer = () => {
                 Buyer's Login
               </h2>
               <p className="text-xs mb-6">LOGIN TO AtaraPay (BUYER)</p>
-              <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <input
-                    className="appearance-none border rounded-lg w-full py-4 px-3  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline"
-                    id="input1"
-                    type="text"
-                    placeholder="Phone number"
-                    value={number}
-                    onChange={(e) => setNumber(e.target.value)}
+              <form onSubmit={handleSubmit(onSubmit)}>
+                {!!error && (
+                  <div className="bg-red-500 text-white rounded-xl px-4 py-2 mb-6">
+                    {error}
+                  </div>
+                )}
+                <div className="space-y-2">
+                  <Input
+                    label="Phone number"
+                    bordered
+                    {...register("phone", {
+                      required: "Please enter your phone number",
+                    })}
+                    error={errors?.phone?.message}
+                    disabled={isCheckBuyerLoading || isLoginLoading}
                   />
+                  {stage === 2 && (
+                    <>
+                      <Input
+                        label="First name"
+                        bordered
+                        {...register("firstname", {
+                          required: "Please enter your first name",
+                        })}
+                        error={errors?.firstname?.message}
+                        disabled={isCheckBuyerLoading || isLoginLoading}
+                      />
+                      <Input
+                        label="Last name"
+                        bordered
+                        {...register("lastname", {
+                          required: "Please enter your last name",
+                        })}
+                        error={errors?.lastname?.message}
+                        disabled={isCheckBuyerLoading || isLoginLoading}
+                      />
+                      <Input
+                        label="Email address"
+                        bordered
+                        {...register("email", {
+                          required: "Please enter your address",
+                        })}
+                        error={errors?.email?.message}
+                        disabled={isCheckBuyerLoading || isLoginLoading}
+                      />
+                    </>
+                  )}
+                  {(stage === 2 || stage === 3) && (
+                    <div className="mb-6">
+                      <PasswordInput
+                        label="Password"
+                        bordered
+                        {...register("password")}
+                        error={errors?.password?.message}
+                        disabled={isCheckBuyerLoading || isLoginLoading}
+                      />
+                    </div>
+                  )}
+                  {stage === 2 && (
+                    <div className="mb-6">
+                      <PasswordInput
+                        label="Password confirmation"
+                        bordered
+                        {...register("password_confirmation")}
+                        error={errors?.password_confirmation?.message}
+                        disabled={isCheckBuyerLoading || isLoginLoading}
+                      />
+                    </div>
+                  )}
+                  {stage === 3 && (
+                    <p className="text-right pt-2 text-sm">
+                      <NavLink to="/forgot" className="text-blue-600 font-bold">
+                        Forgotten Password
+                      </NavLink>
+                    </p>
+                  )}
                 </div>
-                <div className="mb-6">
-                  <input
-                    className="appearance-none border rounded-lg w-full py-4 px-3 text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline"
-                    id="input2"
-                    type="password"
-                    placeholder="Password (************)"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <p className="text-right pt-2 text-sm">
-                    <NavLink to="/forgot" className="text-blue-600 font-bold">
-                      Forgotten Password
-                    </NavLink>
-                  </p>
-                </div>
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center mt-8">
                   <button
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline w-full"
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline w-full disabled:pointer-events-none disabled:opacity-60"
                     type="submit"
+                    disabled={isCheckBuyerLoading || isLoginLoading}
                   >
                     LOGIN
                   </button>

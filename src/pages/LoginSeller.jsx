@@ -1,15 +1,42 @@
 import React, { useState } from "react";
 import AuthLayout from "../components/shared/AuthLayout";
 import heroImg from "../assets/images/hero-img.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import Input from "../components/global/Input";
+import PasswordInput from "../components/global/PasswordInput";
+import { useSellerLogin } from "../api/auth";
 
 const LoginSeller = () => {
-  const [number, setNumber] = useState("");
-  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { mutateAsync: login, isLoading: isLoginLoading } = useSellerLogin();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(number, password);
+  const handleLogin = async (values) => {
+    try {
+      const res = await login(values);
+      console.log(res);
+      if (res.data.status === "error") {
+        setError(res.data.message);
+      } else {
+        navigate("/dashboard");
+      }
+    } catch (e) {
+      console.log(e);
+      setError(
+        e?.response?.data?.message ?? "Something went wrong, please try again"
+      );
+    }
+  };
+
+  const onSubmit = async (values) => {
+    setError("");
+    handleLogin(values);
   };
 
   return (
@@ -25,25 +52,31 @@ const LoginSeller = () => {
                 Seller's Login
               </h2>
               <p className="text-xs mb-6">LOGIN TO AtaraPay (SELLER)</p>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                {!!error && (
+                  <div className="bg-red-500 text-white rounded-xl px-4 py-2 mb-6">
+                    {error}
+                  </div>
+                )}
                 <div className="mb-4">
-                  <input
-                    className="appearance-none border rounded-lg w-full py-4 px-3  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline"
-                    id="input1"
-                    type="text"
-                    placeholder="Phone number"
-                    value={number}
-                    onChange={(e) => setNumber(e.target.value)}
+                  <Input
+                    label="Email"
+                    {...register("email", {
+                      required: "Please Enter Your Email Address",
+                    })}
+                    error={errors?.email?.message}
+                    disabled={isLoginLoading}
                   />
                 </div>
                 <div className="mb-6">
-                  <input
-                    className="appearance-none border rounded-lg w-full py-4 px-3 text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline"
-                    id="input2"
-                    type="password"
-                    placeholder="Password (************)"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                  <PasswordInput
+                    label="Password"
+                    bordered
+                    {...register("password", {
+                      required: "Please enter your password",
+                    })}
+                    error={errors?.password?.message}
+                    disabled={isLoginLoading}
                   />
                   <p className="text-right pt-2 text-sm">
                     <NavLink to="/forgot" className="text-blue-600 font-bold">
@@ -55,6 +88,7 @@ const LoginSeller = () => {
                   <button
                     className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline w-full"
                     type="submit"
+                    disabled={isLoginLoading}
                   >
                     LOGIN
                   </button>

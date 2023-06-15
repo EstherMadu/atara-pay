@@ -10,26 +10,39 @@ import PhoneInput, {
   formatPhoneNumberIntl,
 } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import { useForm } from "react-hook-form";
+import Input from "../components/global/Input";
+import PasswordInput from "../components/global/PasswordInput";
+import { useRegisterSeller } from "../api/auth";
 
 const SignUpBuyer = () => {
-  const [number, setNumber] = useState("");
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [value, setValue] = useState();
-  const [referral, setReferral] = useState();
-  const [option, setOption] = useState();
+  const { mutateAsync: registerSeller, isLoading: isRegisterLoading } =
+    useRegisterSeller();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(number, password);
+  const handleSignUpSeller = async (values) => {
+    try {
+      const res = await registerSeller(values);
+      console.log(res);
+      if (res.data.status === "error") {
+        setError(res.data.message);
+      }
+    } catch (e) {
+      console.log(e);
+      setError(
+        e?.response?.data?.message ?? "Something went wrong, please try again"
+      );
+    }
   };
 
-  const handleSelectedOption = (e) => {
-    setOption(e.target.value);
-    console.log(option);
+  const onSubmit = async (values) => {
+    setError("");
+    handleSignUpSeller(values);
   };
 
   return (
@@ -55,48 +68,44 @@ const SignUpBuyer = () => {
                 Watch: How To Register as a Seller
               </a>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              {!!error && (
+                <div className="bg-red-500 text-white rounded-xl px-4 py-2 mb-6">
+                  {error}
+                </div>
+              )}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <p className="pb-2 text-xs">
-                    Please Enter Your First Name
-                    <span className="text-red-500 text-sm">*</span>
-                  </p>
-                  <input
-                    className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-xs"
-                    id="input1"
-                    type="text"
-                    placeholder="First Name"
-                    value={fname}
-                    onChange={(e) => setFname(e.target.value)}
+                  <Input
+                    label=" Please Enter Your First Name"
+                    bordered
+                    {...register("firstname", {
+                      required: "Please Enter Your First Name",
+                    })}
+                    error={errors?.firstname?.message}
+                    disabled={isRegisterLoading}
                   />
                 </div>
                 <div>
-                  <p className="pb-2 text-xs">
-                    Please Enter Your Last Name
-                    <span className="text-red-500 text-sm">*</span>
-                  </p>
-                  <input
-                    className="appearance-none border rounded-lg w-full py-4 px-5 text-xs text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline"
-                    id="input1"
-                    type="text"
-                    placeholder="Last Name"
-                    value={lname}
-                    onChange={(e) => setLname(e.target.value)}
+                  <Input
+                    label="Please Enter Your Last Name"
+                    bordered
+                    {...register("lastname", {
+                      required: "Please Enter Your Last Name",
+                    })}
+                    error={errors?.lastname?.message}
+                    disabled={isRegisterLoading}
                   />
                 </div>
                 <div>
-                  <p className="pb-2 text-xs">
-                    This Email Address will be Username at login
-                    <span className="text-red-500 text-sm">*</span>
-                  </p>
-                  <input
-                    className="appearance-none border text-xs rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline"
-                    id="input1"
-                    type="text"
-                    placeholder="Email Address (e.g. mail@atarapay.com)"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                  <Input
+                    label=" This Email Address will be Username at login"
+                    bordered
+                    {...register("email", {
+                      required: "Please enter your address",
+                    })}
+                    error={errors?.email?.message}
+                    disabled={isRegisterLoading}
                   />
                 </div>
                 <div>
@@ -105,38 +114,30 @@ const SignUpBuyer = () => {
                     <span className="text-red-500 text-sm">*</span>
                   </p>
                   <PhoneInput
-                    placeholder="Phone Number (08*   * * *   * * * *)"
-                    value={value}
-                    onChange={(value) => setValue(value)}
-                    defaultCountry="NG"
+                    placeholder="Phone Number (08*   * * *   * * * *"
+                    {...register("phone_number")}
+                    error={errors?.phone_number?.message}
+                    disabled={isRegisterLoading}
                   />
                 </div>
                 <div>
-                  <p className="pb-2 text-xs">
-                    Please Select A Password
-                    <span className="text-red-500 text-sm">*</span>
-                  </p>
-                  <input
-                    className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 text-xs focus:outline-none focus:shadow-outline"
-                    id="input1"
-                    type="password"
+                  <PasswordInput
+                    label=" Please Select A Password"
                     placeholder="Enter Password (* * * * * * * * * * * )"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    bordered
+                    {...register("password")}
+                    error={errors?.password?.message}
+                    disabled={isRegisterLoading}
                   />
                 </div>
                 <div>
-                  <p className="pb-2 text-xs">
-                    Please Confirm Your Password
-                    <span className="text-red-500 text-sm">*</span>
-                  </p>
-                  <input
-                    className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-xs"
-                    id="input1"
-                    type="password"
+                  <PasswordInput
+                    label=" Please Confirm Your Password"
                     placeholder="Confirm Password (* * * * * * * * * * * )"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    bordered
+                    {...register("password_confirmation")}
+                    error={errors?.password_confirmation?.message}
+                    disabled={isRegisterLoading}
                   />
                 </div>
 
@@ -146,9 +147,9 @@ const SignUpBuyer = () => {
                     <span className="text-red-500 text-sm">*</span>
                   </p>
                   <select
-                    value={option}
-                    onChange={handleSelectedOption}
                     className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-sm"
+                    {...register("reg_type")}
+                    disabled={isRegisterLoading}
                   >
                     <option value="">Select a role </option>
                     <option value="Linkedin">Individual Seller</option>
@@ -168,8 +169,6 @@ const SignUpBuyer = () => {
                     id="input1"
                     type="password"
                     placeholder="Referral Code"
-                    value={referral}
-                    onChange={(e) => setReferral(e.target.value)}
                   />
                   <p className="text-xs text-center pt-2">
                     If you were referred by any existing user, please enter
@@ -179,9 +178,9 @@ const SignUpBuyer = () => {
                 <div>
                   <p className="pb-2 text-xs">How did you find us?</p>
                   <select
-                    value={option}
-                    onChange={handleSelectedOption}
                     className="appearance-none border rounded-lg w-full py-4 px-5  text-gray-700 leading-tight border-blue-300 focus:outline-none focus:shadow-outline text-sm"
+                    {...register("reg_type")}
+                    disabled={isRegisterLoading}
                   >
                     <option value="">How did you hear about us? </option>
                     <option value="Linkedin">Linkedin</option>
