@@ -1,5 +1,5 @@
 import React from "react";
-import AuthNavbar from "./AuthNavbar";
+import AuthNavbar from "../../components/shared/AuthNavbar";
 
 const AuthLayout = ({ children }) => {
   return (

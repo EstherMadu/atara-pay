@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AuthLayout from "../components/shared/AuthLayout";
+import AuthLayout from "../assets/images/AuthLayout";
 import heroImg from "../assets/images/hero-img.svg";
 import { NavLink } from "react-router-dom";
 

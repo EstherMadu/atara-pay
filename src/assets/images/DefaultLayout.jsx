@@ -1,5 +1,5 @@
 import React from "react";
-import DefaultNavbar from "./DefaultNavbar";
+import DefaultNavbar from "../../components/shared/auth/DefaultNavbar";
 
 const DefaultLayout = ({ children }) => {
   return (
