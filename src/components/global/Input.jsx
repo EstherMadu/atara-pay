@@ -21,11 +21,11 @@ const Input = forwardRef(
               { "pr-12": !!rightIcon },
               { "opacity-60 pointer-events-none": disabled },
               {
-                "bg-transparent border border-blue-500 focus:border-blue-500":
+                "bg-transparent border border-blue-400 focus:border-[2px] focus:border-blue-600":
                   bordered,
               },
               {
-                "bg-gray-100 focus:ring-2 ring-offset-2 ring-blue-500 ring-opacity-30 ":
+                "bg-gray-100 focus:ring-2 ring-offset-2 ring-blue-800 ring-opacity-30":
                   !bordered,
               }
             )}

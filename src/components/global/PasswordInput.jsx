@@ -19,14 +19,14 @@ const PasswordInput = forwardRef(
         <div className="relative">
           <input
             className={classNames(
-              "bg-gray-100 px-4 py-3 pr-12 rounded-md w-full focus:ring-2 ring-offset-2 ring-primary-800 ring-opacity-30 transition duration-300",
+              "px-4 py-3 rounded-md w-full transition duration-300",
               { "opacity-60 pointer-events-none": disabled },
               {
-                "bg-transparent border border-gray-400 focus:border-primary-600":
+                "bg-transparent border border-blue-400 focus:border-[2px] focus:border-blue-600":
                   bordered,
               },
               {
-                "bg-gray-100 focus:ring-2 ring-offset-2 ring-primary-800 ring-opacity-30":
+                "bg-gray-100 focus:ring-2 ring-offset-2 ring-blue-800 ring-opacity-30":
                   !bordered,
               }
             )}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AuthLayout from "../components/shared/AuthLayout";
 import heroImg from "../assets/images/hero-img.svg";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Input from "../components/global/Input";
 import PasswordInput from "../components/global/PasswordInput";
@@ -61,6 +61,7 @@ const LoginSeller = () => {
                 <div className="mb-4">
                   <Input
                     label="Email"
+                    bordered
                     {...register("email", {
                       required: "Please Enter Your Email Address",
                     })}
@@ -79,9 +80,12 @@ const LoginSeller = () => {
                     disabled={isLoginLoading}
                   />
                   <p className="text-right pt-2 text-sm">
-                    <NavLink to="/forgot" className="text-blue-600 font-bold">
+                    <Link
+                      to="/forgot/seller"
+                      className="text-blue-600 font-bold"
+                    >
                       Forgot Password
-                    </NavLink>
+                    </Link>
                   </p>
                 </div>
                 <div className="flex items-center justify-center">
@@ -96,25 +100,25 @@ const LoginSeller = () => {
                 <div className="text-center my-6">
                   <p className="py-4 text-xs tracking-tight">
                     Login as{" "}
-                    <NavLink
+                    <Link
                       to="/login/buyer"
                       className="text-blue-600 font-bold px-2"
                     >
                       Buyer
-                    </NavLink>
+                    </Link>
                   </p>
                   <p className="text-xs">
                     Don't have an account yet? Register as{" "}
-                    <NavLink to="/" className="text-blue-600 font-bold px-2">
+                    <Link to="/" className="text-blue-600 font-bold px-2">
                       Buyer
-                    </NavLink>
+                    </Link>
                     or
-                    <NavLink
+                    <Link
                       to="/signup/seller"
                       className="text-blue-600 font-bold px-2"
                     >
                       Seller
-                    </NavLink>
+                    </Link>
                   </p>
                 </div>
               </form>

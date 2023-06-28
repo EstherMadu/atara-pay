@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import AuthLayout from "../components/shared/AuthLayout";
 import heroImg from "../assets/images/hero-img.svg";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
 import Input from "../components/global/Input";
 import PasswordInput from "../components/global/PasswordInput";
+import PhoneInput from "react-phone-number-input";
 import { useCheckBuyer, useLogin } from "../api/auth";
+import { useToast } from "../hooks/use-toast";
 
 const LoginBuyer = () => {
   const navigate = useNavigate();
   const [stage, setStage] = useState(null);
+  const toast = useToast();
   const { mutateAsync: checkBuyer, isLoading: isCheckBuyerLoading } =
     useCheckBuyer();
   const { mutateAsync: login, isLoading: isLoginLoading } = useLogin();
@@ -17,15 +20,15 @@ const LoginBuyer = () => {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm();
-  const [error, setError] = useState("");
 
   const handleCheckBuyer = async ({ phone: email, ...values }) => {
     try {
       const res = await checkBuyer({ email, ...values });
       console.log({ res });
       if (res.data.status === "error") {
-        setError(res.data.message);
+        toast.error(res.data.message);
       } else {
         if (res.data.data.firstTime) {
           setStage(2);
@@ -35,7 +38,7 @@ const LoginBuyer = () => {
       }
     } catch (e) {
       console.log({ e });
-      setError(
+      toast.error(
         e?.response?.data?.message ?? "Something went wrong, please try again"
       );
     }
@@ -48,15 +51,13 @@ const LoginBuyer = () => {
       navigate("/dashboard");
     } catch (e) {
       console.log({ e });
-      setError(
+      toast.error(
         e?.response?.data?.message ?? "Something went wrong, please try again"
       );
     }
   };
 
   const onSubmit = async (values) => {
-    setError("");
-    console.log({ stage });
     if (!stage) {
       handleCheckBuyer(values);
     } else if (stage === 3) {
@@ -78,20 +79,26 @@ const LoginBuyer = () => {
               </h2>
               <p className="text-xs mb-6">LOGIN TO AtaraPay (BUYER)</p>
               <form onSubmit={handleSubmit(onSubmit)}>
-                {!!error && (
-                  <div className="bg-red-500 text-white rounded-xl px-4 py-2 mb-6">
-                    {error}
-                  </div>
-                )}
                 <div className="space-y-2">
-                  <Input
-                    label="Phone number"
-                    bordered
-                    {...register("phone", {
-                      required: "Please enter your phone number",
-                    })}
-                    error={errors?.phone?.message}
-                    disabled={isCheckBuyerLoading || isLoginLoading}
+                  <Controller
+                    name="phone"
+                    control={control}
+                    render={({ field }) => {
+                      console.log(field);
+                      return (
+                        <PhoneInput
+                          {...field}
+                          onChange={(e) =>
+                            field.onChange({ target: { value: e } })
+                          }
+                          placeholder="Phone Number (08*   * * *   * * * *"
+                          error={errors?.phone_number?.message}
+                          disabled={
+                            isCheckBuyerLoading || isLoginLoading || stage > 1
+                          }
+                        />
+                      );
+                    }}
                   />
                   {stage === 2 && (
                     <>
@@ -148,9 +155,12 @@ const LoginBuyer = () => {
                   )}
                   {stage === 3 && (
                     <p className="text-right pt-2 text-sm">
-                      <NavLink to="/forgot" className="text-blue-600 font-bold">
+                      <Link
+                        to="/forgot/buyer"
+                        className="text-blue-600 font-bold"
+                      >
                         Forgotten Password
-                      </NavLink>
+                      </Link>
                     </p>
                   )}
                 </div>
@@ -166,30 +176,26 @@ const LoginBuyer = () => {
                 <div className="text-center my-6">
                   <p className="py-4 text-xs tracking-tight">
                     Login as{" "}
-                    <NavLink
+                    <Link
                       to="/login/seller"
                       className="text-blue-600 font-bold px-2"
                     >
                       Seller
-                    </NavLink>
+                    </Link>
                   </p>
                   <p className="text-xs">
                     Don't have an account yet? Register as{" "}
-                    <NavLink to="/" className="text-blue-600 font-bold px-2">
+                    <Link to="/" className="text-blue-600 font-bold px-2">
                       Buyer
-                    </NavLink>
+                    </Link>
                     or
-                    <NavLink
+                    <Link
                       to="/signup/seller"
                       className="text-blue-600 font-bold px-2"
                     >
                       Seller
-                    </NavLink>
+                    </Link>
                   </p>
-
-                  <NavLink to="/otp" className="text-blue-600 font-bold px-2">
-                    OTP
-                  </NavLink>
                 </div>
               </form>
             </div>

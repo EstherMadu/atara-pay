@@ -1,57 +1,64 @@
 import React, { useState } from "react";
 import AuthLayout from "../components/shared/AuthLayout";
 import heroImg from "../assets/images/hero-img.svg";
-import captcha from "../assets/images/captcha.png";
 import { NavLink } from "react-router-dom";
-import PhoneInput, {
-  isValidPhoneNumber,
-  isPossiblePhoneNumber,
-  formatPhoneNumber,
-  formatPhoneNumberIntl,
-} from "react-phone-number-input";
+import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import Input from "../components/global/Input";
 import PasswordInput from "../components/global/PasswordInput";
+import ReCAPTCHA from "react-google-recaptcha";
+import { isBrowser, isMobile } from "react-device-detect";
 import { useRegisterSeller } from "../api/auth";
+import { useToast } from "../hooks/use-toast";
 
-const SignUpBuyer = () => {
+const SignUpSeller = () => {
   const { mutateAsync: registerSeller, isLoading: isRegisterLoading } =
     useRegisterSeller();
+  const toast = useToast();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm();
-  const [error, setError] = useState("");
+  const [captured, setCaptured] = useState(false);
 
   const handleSignUpSeller = async (values) => {
     try {
+      const deviceType = isBrowser
+        ? "browser"
+        : isMobile
+        ? "mobile"
+        : "unknown";
+      values.device_type = deviceType;
+      const deviceVersion = "1.0";
+      values.device_version = deviceVersion;
       const res = await registerSeller(values);
-      console.log(res);
       if (res.data.status === "error") {
-        setError(res.data.message);
+        toast.error(res.data.message);
+      } else {
+        navigate("/otp");
       }
     } catch (e) {
-      console.log(e);
-      setError(
+      toast.error(
         e?.response?.data?.message ?? "Something went wrong, please try again"
       );
     }
   };
 
   const onSubmit = async (values) => {
-    setError("");
+    if (!captured) return toast.error("Please verify that you are human");
     handleSignUpSeller(values);
   };
 
   return (
     <AuthLayout>
-      <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 min-h-screen overflow-y-auto">
+      <div className="md:grid lg:grid-cols-12 gap-8 lg:gap-16 min-h-screen overflow-y-auto">
         <div className="lg:flex col-span-6 justify-end items-center  pt-12">
           <img src={heroImg} alt="hero" className="w-full md:max-w-[600px]" />
         </div>
-        <div className="col-span-8 lg:col-span-6  flex flex-col lg:bg-blue-600 h-full pt-12 form-card z-10">
+        <section className="md:col-span-8 lg:col-span-6  flex flex-col lg:bg-blue-600 h-full pt-12 form-card z-10">
           <div className="bg-white border rounded-xl shadow-lg p-10 w-full md:w-[700px] mx-auto lg:-ml-[300px] my-auto overflow-y-auto ">
             <h2 className="text-blue-600 text-3xl font-bold">
               Sign Up to AtaraPay (Seller)
@@ -69,11 +76,6 @@ const SignUpBuyer = () => {
               </a>
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
-              {!!error && (
-                <div className="bg-red-500 text-white rounded-xl px-4 py-2 mb-6">
-                  {error}
-                </div>
-              )}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <Input
@@ -113,11 +115,22 @@ const SignUpBuyer = () => {
                     Please Enter Your Phone Number
                     <span className="text-red-500 text-sm">*</span>
                   </p>
-                  <PhoneInput
-                    placeholder="Phone Number (08*   * * *   * * * *"
-                    {...register("phone_number")}
-                    error={errors?.phone_number?.message}
-                    disabled={isRegisterLoading}
+                  <Controller
+                    name="phone_number"
+                    control={control}
+                    render={({ field }) => {
+                      return (
+                        <PhoneInput
+                          {...field}
+                          onChange={(e) =>
+                            field.onChange({ target: { value: e } })
+                          }
+                          placeholder="Phone Number (08*   * * *   * * * *"
+                          error={errors?.phone_number?.message}
+                          disabled={isRegisterLoading}
+                        />
+                      );
+                    }}
                   />
                 </div>
                 <div>
@@ -190,11 +203,17 @@ const SignUpBuyer = () => {
                 </div>
               </div>
 
-              <div className="grid md:flex items-center justify-center mb-6 lg:mb-0">
-                <img src={captcha} alt="captcha" className="w-80" />
+              <div className="grid md:flex items-center justify-center my-6 gap-4">
+                <ReCAPTCHA
+                  sitekey="6LcK-ZsUAAAAAE5QMsoKYJHF8ZGtl9uulCaP-DQT"
+                  onChange={() => {
+                    setCaptured(true);
+                  }}
+                />
                 <button
                   className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-full focus:outline-none focus:shadow-outline w-full"
                   type="submit"
+                  disabled={isRegisterLoading}
                 >
                   SIGN UP
                 </button>
@@ -236,10 +255,10 @@ const SignUpBuyer = () => {
               </div>
             </form>
           </div>
-        </div>
+        </section>
       </div>
     </AuthLayout>
   );
 };
 
-export default SignUpBuyer;
+export default SignUpSeller;

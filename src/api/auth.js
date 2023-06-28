@@ -38,3 +38,18 @@ export const useRegisterBuyer = () => {
     return http.post("/customer/register", body);
   });
 };
+
+//  FORGOT PASSWORD BUYER
+export const useSendBuyerResetLink = () => {
+  return useMutation((body) => {
+    return http.post("/customer/forgot", body);
+  });
+};
+
+// FORGOT PASSWORD SELLER
+
+export const useSendSellerResetLink = () => {
+  return useMutation((body) => {
+    return http.post("/seller/forgot", body);
+  });
+};

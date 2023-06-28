@@ -2,7 +2,8 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import SignUpBuyer from "./pages/SignUpBuyer";
 import SignUpSeller from "./pages/SignUpSeller";
-import ForgotPassword from "./pages/ForgotPassword";
+import ForgotPassword from "./pages/ForgotPasswordBuyer";
+import ForgotPasswordSeller from "./pages/ForgotPasswordSeller";
 import Otp from "./pages/Otp";
 import LoginBuyer from "./pages/LoginBuyer";
 import LoginSeller from "./pages/LoginSeller";
@@ -18,7 +19,8 @@ const App = () => {
         <Route path="/login/seller" element={<LoginSeller />} />
         <Route path="/login/buyer" element={<LoginBuyer />} />
         <Route path="/otp" element={<Otp />} />
-        <Route path="/forgot" element={<ForgotPassword />} />
+        <Route path="/forgot/buyer" element={<ForgotPassword />} />
+        <Route path="/forgot/seller" element={<ForgotPasswordSeller />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
